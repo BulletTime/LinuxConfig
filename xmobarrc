@@ -1,0 +1,50 @@
+Config { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
+       , alpha = 255
+       , bgColor = "#0d0d0d"
+       , fgColor = "#a8a8a8"
+       , position = TopW L 100
+
+       -- layout
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %multicpu% | %memory% | %dynnetwork% | %date%"
+
+       -- general behavior
+       , lowerOnStart = True
+       , hideOnStart = False
+       , persistent = False
+
+       -- plugins
+       , commands = [ Run MultiCpu   [ "--template" , "Cpu: <total0>%|<total1>%|<total2>%|<total3>%"
+                                     , "--Low"      , "50"
+                                     , "--High"     , "85"
+                                     , "--low"      , "green"
+                                     , "--normal"   , "orange"
+                                     , "--high"     , "red"
+                                     ] 10
+
+                    -- memory usage monitor
+                    , Run Memory     [ "--template" , "Mem: <usedratio>% (<cache>M)"
+                                     , "--Low"      , "20"
+                                     , "--High"     , "80"
+                                     , "--low"      , "green"
+                                     , "--normal"   , "orange"
+                                     , "--high"     , "red"
+                                     ] 10
+
+                    -- time and date indicator
+                    , Run Date       "(%a) <fc=#ABABAB>%F %T</fc>" "date" 10
+
+                    -- network activity monitor
+                    , Run DynNetwork [ "--template" , "eth0: <tx>kB/s|<rx>kB/s"
+                                     , "--Low"      , "1000"
+                                     , "--High"     , "5000"
+                                     , "--low"      , "green"
+                                     , "--normal"   , "orange"
+                                     , "--high"     , "red"
+                                     ] 10
+
+                    -- Stdin Reader
+                    , Run StdinReader
+                    ]
+       }

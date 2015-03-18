@@ -1,0 +1,62 @@
+! Xft settings -------------------------------------------
+Xft.dpi: 96
+Xft.antialias: false
+Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: true
+
+! URxvt ---------------------------------------------------
+URxvt*depth: 32
+URxvt*background: [75]#000000
+URxvt*foreground: #ffffff
+URxvt*font: 9x15
+URxvt*scrollBar: false
+URxvt*url-launcher: /usr/bin/firefox
+URxvt*perl-ext-common: default,clipboard,font-size
+URxvt*iso14755: false
+URxvt*keysym*Control-C: perl:clipboard:copy
+URxvt*keysym*Control-V: perl:clipboard:paste
+URxvt*keysym*Control-Up: perl:font-size:increase
+URxvt*keysym*Control-Down: perl:font-size:decrease
+URxvt*keysym*Control-Shift-Up: perl:font-size:incsave
+URxvt*keysym*Control-Shift-Down: perl:font-size:decsave
+
+! XTerm ---------------------------------------------------
+XTerm*termName: xterm-256color
+XTerm*locale: true
+XTerm*metaSendsEscape: true
+
+XTerm*colorBDMode: true
+XTerm*colorULMode: true
+XTerm*colorITMode: true
+
+XTerm*colorIT: #DEBC9C
+XTerm*colorBD: #CBE6CB
+XTerm*colorUL: #B6B99D
+
+
+! colors ---------------------------------------------------
+
+*foreground: #a8a8a8
+*background: #2d2d2d
+
+*colorIT: 11
+*colorBD: 14
+*colorUL: 10
+
+*color0: #000000
+*color8: #202020
+*color1: #821900
+*color9: #EC441C
+*color2: #008200
+*color10: #7CBB00
+*color3: #BA6B00
+*color11: #FFA24B
+*color4: #005FFF
+*color12: #508BEE
+*color5: #8942A5
+*color13: #9D0FD3
+*color6: #219AD2
+*color14: #00AFFF
+*color7: #D0D0D0
+*color15: #E6E6E6
