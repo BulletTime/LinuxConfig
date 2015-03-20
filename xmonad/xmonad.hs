@@ -3,6 +3,7 @@ import XMonad.Config.Azerty
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.Spacing
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
@@ -21,7 +22,7 @@ main = do
     xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmobarrc"
     xmonad $ azertyConfig
 	{ terminal = myTerminal
-	, modMask = mod1Mask
+	, modMask = mod4Mask
 	, borderWidth = 2
 	, normalBorderColor = "#000000"
 	, focusedBorderColor = "#508BEE"
@@ -29,6 +30,8 @@ main = do
         , layoutHook = avoidStruts $ myLayout
         , manageHook = myManageHook
         , logHook = myLogHook xmproc
+        , keys = myKeys
+        , handleEventHook = fullscreenEventHook
 	}
 
 myTerminal = "urxvt"
@@ -45,7 +48,7 @@ myLogHook h = dynamicLogWithPP $ xmobarPP
     }
 
 -- WorkSpaces
-myWorkSpaces = ["1:web","2","3","4","5","6","7","8","9"]
+myWorkSpaces = ["1:web","2:edit","3:dev","4:vid","5"]
 
 -- Layout
 myLayout = noBordersLayout ||| tiled where
@@ -58,9 +61,84 @@ myLayout = noBordersLayout ||| tiled where
 -- ManageHook
 myManageHook = composeAll
     [ manageDocks
-    , (className =? "Firefox" <&&> title =? "Firefox Preferences") --> doFloat
-    , (className =? "Firefox" <&&> title =? "Library") --> doFloat
     , resource =? "Dialog" --> doFloat
-    , className =? "Firefox" --> viewShift "1:web"
+    , className =? "Chromium" --> viewShift "1:web"
     , manageHook defaultConfig
     ] where viewShift = doF . liftM2 (.) W.greedyView W.shift
+
+-- Keys
+keysToAdd x = 
+    [ ((mod4Mask .|. shiftMask, xK_comma), spawn ("echo \"" ++ my_help ++ "\" | xmessage -file -"))
+    , ((mod4Mask .|. shiftMask, xK_n), refresh)
+    , ((mod4Mask, xK_b), sendMessage ToggleStruts)
+    , ((mod4Mask .|. shiftMask, xK_F5), spawn "sudo shutdown -h now")
+    , ((mod4Mask .|. shiftMask, xK_F6), spawn "sudo reboot")
+    , ((mod4Mask, xK_c), spawn "chromium")
+    , ((0, xF86XK_KbdBrightnessUp), spawn "sudo asus-kbd-backlight up")
+    , ((0, xF86XK_KbdBrightnessDown), spawn "sudo asus-kbd-backlight down")
+    , ((0, xF86XK_AudioMute), spawn "amixer sset Master toggle")
+    , ((0, xF86XK_AudioLowerVolume), spawn "amixer sset Master 5%-")
+    , ((0, xF86XK_AudioRaiseVolume), spawn "amixer sset Master 5%+")
+    , ((0, xK_Print), spawn "scrot")
+    , ((controlMask, xK_Print), spawn "scrot -s")
+    ]
+
+keysToDel x = 
+    [ (mod4Mask, xK_n)
+    ]
+
+defaultKeys x = foldr M.delete (keys azertyConfig x) (keysToDel x)
+myKeys x = M.union (defaultKeys x) (M.fromList (keysToAdd x))
+
+-- Help
+my_help = unlines
+    [ "The modifier key is the super key (windows key)."
+    , ""
+    , "-- launching and killing programs"
+    , "mod-Shift-Enter  Launch urxvt terminal"
+    , "mod-P            Launch dmenu"
+    , "mod-Shift-C      Close/kill the focused window"
+    , ""
+    , "-- layout of window manager"
+    , "mod-Space        Rotate through the available layout algorithms"
+    , "mod-Shift-Space  Reset the layouts on the current workspace to default"
+    , "mod-Shift-N      Resize/refresh viewed windows to the correct size"
+    , ""
+    , "-- move focus up or daown the window stack"
+    , "mod-Tab          Move focus to the next window"
+    , "mod-Shift-Tab    Move focus to the previous window"
+    , "mod-J            Move focus to the next window"
+    , "mod-K            Move focus to the previous window"
+    , "mod-M            Move focus to the master window"
+    , ""
+    , "-- modifying the window order"
+    , "mod-Return       Swap the focused window and the master window"
+    , "mod-Shift-J      Swap the focused window and the next window"
+    , "mod-Shift-K      Swap the focused window and the previous window"
+    , ""
+    , "-- resizing the master/slave ratio"
+    , "mod-B            Show/hide xmobar"
+    , "mod-H            Shrink the master area"
+    , "mod-L            Expand the master area"
+    , ""
+    , "-- floating layer support"
+    , "mod-T            Push window back into tiling; unfloat and re-tile it"
+    , ""
+    , "-- increase or decrease number of windows in the master area"
+    , "mod-Comma        Increment the number of windows in the master area"
+    , "mod-Period       Decrement the number of windows in the master area"
+    , ""
+    , "-- quick commands"
+    , "mod-Shift-Q      Quit xmonad"
+    , "mod-Q            Restart xmonad"
+    , "mod-Shift-F5     Shutdown"
+    , "mod-Shift-F6     Reboot"
+    , ""
+    , "-- workspaces"
+    , "mod-[1..9]       Switch to workspace N"
+    , "mod-Shift-[1..9] Move client to workspace N"
+    , ""
+    , "-- screenshots"
+    , "PrtScr           Takes a snapshot of the screen"
+    , "Control-PrtScr   Takes a snapshot of the current window"
+    ]
