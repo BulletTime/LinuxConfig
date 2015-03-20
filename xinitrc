@@ -14,20 +14,21 @@ fi
 # Load Xresources if exists
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
-# Background 
-feh --bg-scale ~/images/arch.jpg
+# Background
+feh --bg-scale ~/images/arch.png &
 
-# Mouse
-xsetroot -cursor_name left_ptr
-
-# Keyboard
+# Set keyboard
 setxkbmap be
-
-# VirtualBox guest
-VboxClient-all &
 
 # Compositing effects
 xcompmgr -f &
 
-# Start xmonad
+# Solve problem with Java GUI applications in xmonad
+wmname LG3D
+
+# Start applications
+chromium &
+
+# Run Xmonad
+xsetroot -cursor_name left_ptr
 xmonad

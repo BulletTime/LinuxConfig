@@ -7,7 +7,7 @@ Config { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
        -- layout
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %multicpu% | %memory% | %dynnetwork% | %date%"
+       , template = "%StdinReader% }{ %cpu% | %memory% | %wlp3s0wi%: %dynnetwork% | %bright% %volume% | %battery% | %date%"
 
        -- general behavior
        , lowerOnStart = True
@@ -15,7 +15,7 @@ Config { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
        , persistent = False
 
        -- plugins
-       , commands = [ Run MultiCpu   [ "--template" , "Cpu: <total0>%|<total1>%|<total2>%|<total3>%"
+       , commands = [ Run Cpu        [ "--template" , "CPU: <total>%"
                                      , "--Low"      , "50"
                                      , "--High"     , "85"
                                      , "--low"      , "green"
@@ -24,7 +24,7 @@ Config { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
                                      ] 10
 
                     -- memory usage monitor
-                    , Run Memory     [ "--template" , "Mem: <usedratio>% (<cache>M)"
+                    , Run Memory     [ "--template" , "MEM: <usedratio>% (<used>M)"
                                      , "--Low"      , "20"
                                      , "--High"     , "80"
                                      , "--low"      , "green"
@@ -33,16 +33,51 @@ Config { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
                                      ] 10
 
                     -- time and date indicator
-                    , Run Date       "(%a) <fc=#ABABAB>%F %T</fc>" "date" 10
+                    , Run Date       "<fc=#ABABAB>%a %d %B %Y %T</fc>" "date" 10
 
                     -- network activity monitor
-                    , Run DynNetwork [ "--template" , "eth0: <tx>kB/s|<rx>kB/s"
-                                     , "--Low"      , "1000"
-                                     , "--High"     , "5000"
+                    , Run DynNetwork [ "--template" , "<tx>kB/s|<rx>kB/s"
+                                     , "--Low"      , "100000"
+                                     , "--High"     , "5000000"
                                      , "--low"      , "green"
                                      , "--normal"   , "orange"
                                      , "--high"     , "red"
                                      ] 10
+
+                    -- battery monitor
+                    , Run Battery    [ "--template" , "Batt: <acstatus>"
+                                     , "--Low"      , "25"
+                                     , "--High"     , "75"
+                                     , "--low"      , "red"
+                                     , "--normal"   , "orange"
+                                     , "--high"     , "green"
+                                     , "--"
+                                     , "-o"         , "<left>% (<timeleft>)"
+                                     , "-O"         , "<left>% (Charging)"
+                                     , "-i"         , "<left>% (Charged)"
+                                     ] 50
+
+                    -- Wireless monitor
+                    , Run Wireless "wlp3s0"
+                                     [ "--template" , "<essid> <quality>%"
+                                     , "--Low"      , "50"
+                                     , "--High"     , "75"
+                                     , "--low"      , "red"
+                                     , "--normal"   , "orange"
+                                     , "--high"     , "green"
+                                     ] 10
+
+                    -- Brightness monitor
+                    , Run Brightness [ "--template" , "Br: <percent>%"
+                                     , "--"
+                                     , "--device"   , "intel_backlight"
+                                     ] 10
+
+                    -- Volume monitor
+                    , Run Com "sh" ["/home/sven/Scripts/volume.sh"] "volume" 10
+
+                    -- Linux version
+                    , Run Com "uname" ["-s", "-r"] "myversion" 100
 
                     -- Stdin Reader
                     , Run StdinReader
