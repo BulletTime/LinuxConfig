@@ -48,7 +48,7 @@ myLogHook h = dynamicLogWithPP $ xmobarPP
     }
 
 -- WorkSpaces
-myWorkSpaces = ["1:web","2:edit","3:dev","4:vid","5"]
+myWorkSpaces = ["1:web","2:edit","3:dev","4:vid","5:mus"]
 
 -- Layout
 myLayout = noBordersLayout ||| tiled where
@@ -63,6 +63,11 @@ myManageHook = composeAll
     [ manageDocks
     , resource =? "Dialog" --> doFloat
     , className =? "Chromium" --> viewShift "1:web"
+    , className =? "Eclipse" --> viewShift "3:dev"
+    , className =? "jetbrains-pycharm" --> viewShift "3:dev"
+    , className =? "Spotify" --> viewShift "5:mus"
+    , className =? "Vlc" --> viewShift "4:vid"
+    , className =? "Notepadqq" --> viewShift "2:edit"
     , manageHook defaultConfig
     ] where viewShift = doF . liftM2 (.) W.greedyView W.shift
 
@@ -74,6 +79,7 @@ keysToAdd x =
     , ((mod4Mask .|. shiftMask, xK_F5), spawn "sudo shutdown -h now")
     , ((mod4Mask .|. shiftMask, xK_F6), spawn "sudo reboot")
     , ((mod4Mask, xK_c), spawn "chromium")
+    , ((mod4Mask, xK_n), spawn "nemo")
     , ((0, xF86XK_KbdBrightnessUp), spawn "sudo asus-kbd-backlight up")
     , ((0, xF86XK_KbdBrightnessDown), spawn "sudo asus-kbd-backlight down")
     , ((0, xF86XK_AudioMute), spawn "amixer sset Master toggle")
@@ -141,4 +147,8 @@ my_help = unlines
     , "-- screenshots"
     , "PrtScr           Takes a snapshot of the screen"
     , "Control-PrtScr   Takes a snapshot of the current window"
+    , ""
+    , "-- applications"
+    , "mod-C            Start chrome (browser)"
+    , "mod-N            Start nemo (file manager)"
     ]

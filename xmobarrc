@@ -25,7 +25,7 @@ Config { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
 
                     -- memory usage monitor
                     , Run Memory     [ "--template" , "MEM: <usedratio>% (<used>M)"
-                                     , "--Low"      , "20"
+                                     , "--Low"      , "50"
                                      , "--High"     , "80"
                                      , "--low"      , "green"
                                      , "--normal"   , "orange"
