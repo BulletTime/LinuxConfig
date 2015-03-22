@@ -30,10 +30,8 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # Start applications
 sleep 1
 dropbox &
-notepadqq &
+#notepadqq &
 chromium &
-sleep 1
-urxvt &
 
 # Run Xmonad
 xsetroot -cursor_name left_ptr
