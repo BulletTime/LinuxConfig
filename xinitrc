@@ -24,7 +24,7 @@ setxkbmap be
 xcompmgr -f &
 
 # Solve problem with Java GUI applications in xmonad
-# wmname LG3D
+#wmname LG3D
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Start applications

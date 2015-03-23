@@ -85,8 +85,7 @@ keysToAdd x =
     , ((0, xF86XK_AudioMute), spawn "amixer sset Master toggle")
     , ((0, xF86XK_AudioLowerVolume), spawn "amixer sset Master 5%-")
     , ((0, xF86XK_AudioRaiseVolume), spawn "amixer sset Master 5%+")
-    , ((0, xK_Print), spawn "scrot")
-    , ((controlMask, xK_Print), spawn "scrot -s")
+    , ((0, xK_Print), spawn "scrot -e 'mv $f ~/Dropbox/Screenshots'")
     ]
 
 keysToDel x = 
