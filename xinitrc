@@ -31,8 +31,8 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 xscreensaver -no-splash &
 
 # Lock screen on suspend/hibernate/sleep
-#killall xss-lock
-#xss-lock -- xscreensaver-command -lock &
+killall xss-lock
+xss-lock -- xscreensaver-command -lock &
 
 # Start applications
 sleep 1
