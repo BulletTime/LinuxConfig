@@ -13,8 +13,6 @@ URxvt*keysym*Control-Up: perl:font-size:increase
 URxvt*keysym*Control-Down: perl:font-size:decrease
 URxvt*keysym*Control-Shift-Up: perl:font-size:incsave
 URxvt*keysym*Control-Shift-Down: perl:font-size:decsave
-URxvt*urgentOnBell: true
-URxvt*visualBell: false
 
 ! XTerm ---------------------------------------------------
 XTerm*termName: xterm-256color
