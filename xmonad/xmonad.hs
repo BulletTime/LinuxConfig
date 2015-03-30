@@ -78,6 +78,7 @@ keysToAdd x =
     , ((mod4Mask, xK_b), sendMessage ToggleStruts)
     , ((mod4Mask .|. shiftMask, xK_F5), spawn "sudo shutdown -h now")
     , ((mod4Mask .|. shiftMask, xK_F6), spawn "sudo reboot")
+    , ((mod4Mask .|. shiftMask, xK_l), spawn "xscreensaver-command --lock")
     , ((mod4Mask, xK_c), spawn "chromium")
     , ((mod4Mask, xK_n), spawn "nemo")
     , ((0, xF86XK_KbdBrightnessUp), spawn "sudo asus-kbd-backlight up")
