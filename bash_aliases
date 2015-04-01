@@ -23,3 +23,6 @@ alias mount='mount | column -t'
 
 # du
 alias du='du -h --all --max-depth=1 | sort -h -r'
+
+#sudo
+alias sudo='sudo '
