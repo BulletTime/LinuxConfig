@@ -62,7 +62,7 @@ myLayout = noBordersLayout ||| tiled where
 myManageHook = composeAll
     [ manageDocks
     , resource =? "Dialog" --> doFloat
-    , className =? "Chromium" --> viewShift "1:web"
+    , className =? "Google Chrome" --> viewShift "1:web"
     , className =? "Eclipse" --> viewShift "3:dev"
     , className =? "jetbrains-pycharm" --> viewShift "3:dev"
     , className =? "Spotify" --> viewShift "5:mus"

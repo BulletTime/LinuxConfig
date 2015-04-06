@@ -38,7 +38,7 @@ xss-lock -- xscreensaver-command -lock &
 sleep 1
 dropbox &
 #notepadqq &
-chromium &
+google-chrome-stable &
 
 # Run Xmonad
 xsetroot -cursor_name left_ptr
