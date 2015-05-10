@@ -67,7 +67,6 @@ myManageHook = composeAll
     , className =? "jetbrains-pycharm" --> viewShift "3:dev"
     , className =? "Spotify" --> viewShift "5:mus"
     , className =? "Vlc" --> viewShift "4:vid"
-    , className =? "Notepadqq" --> viewShift "2:edit"
     , manageHook defaultConfig
     ] where viewShift = doF . liftM2 (.) W.greedyView W.shift
 
@@ -79,7 +78,7 @@ keysToAdd x =
     , ((mod4Mask .|. shiftMask, xK_F5), spawn "sudo shutdown -h now")
     , ((mod4Mask .|. shiftMask, xK_F6), spawn "sudo reboot")
     , ((mod4Mask .|. shiftMask, xK_l), spawn "xscreensaver-command --lock")
-    , ((mod4Mask, xK_c), spawn "chromium")
+    , ((mod4Mask, xK_c), spawn "google-chrome-stable")
     , ((mod4Mask, xK_n), spawn "nemo")
     , ((0, xF86XK_KbdBrightnessUp), spawn "sudo asus-kbd-backlight up")
     , ((0, xF86XK_KbdBrightnessDown), spawn "sudo asus-kbd-backlight down")
